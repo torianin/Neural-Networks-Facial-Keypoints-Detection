@@ -1,0 +1,66 @@
+#:kivy 1.4
+
+<Controller>:
+    text_path: my_custom_label
+
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "top"
+        GridLayout:
+            cols: 2
+            size_hint: 0.8, 0.1
+            Button:
+                text: "UCZ"
+                size_hint: .2, .2
+                on_press: root.do_action()
+            Button:
+                text: "ROZPOZNAWAJ"
+                size_hint: .2, .2
+                on_press: root.do_action()
+
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        Button:
+            text: "OPCJE"
+            size_hint: .1, .1
+            on_press: root.do_action()
+
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "bottom"
+        GridLayout:
+            rows: 2
+            size_hint: 0.8, 0.1
+            Label:
+                id: my_custom_label
+                text: "C:/TWARZ"
+                size_hint: .2, .2
+            Button:
+                text: "WYBIERZ"
+                size_hint: .2, .2
+                on_press: root.show_load()
+            Button:
+                text: "KAGGLE"
+                size_hint: .2, .2
+                on_press: root.do_action()
+
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Anuluj"
+                on_release: root.cancel()
+
+            Button:
+                text: "Wczytaj zdjęcie"
+                on_release: root.load(filechooser.path, filechooser.selection)
