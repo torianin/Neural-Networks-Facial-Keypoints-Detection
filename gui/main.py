@@ -7,8 +7,8 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
 
 import os
-from lib import CSVLoader
-from lib import Model
+from tools import CSVLoader
+from tools import Model
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
