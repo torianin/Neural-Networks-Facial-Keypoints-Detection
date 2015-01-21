@@ -7,6 +7,7 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
 
 import os
+from lib import CSVLoader
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
@@ -14,6 +15,9 @@ class LoadDialog(FloatLayout):
 
 class Controller(AnchorLayout):
     text_path = ObjectProperty(None)
+
+    def load_kaggle_data(self):
+        CSVLoader.load()
 
     def do_action(self):
         self.path.text = 'Do something'
