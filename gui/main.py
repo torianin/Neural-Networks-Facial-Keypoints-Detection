@@ -8,6 +8,7 @@ from kivy.graphics import Rectangle
 
 import os
 from lib import CSVLoader
+from lib import Model
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
@@ -17,8 +18,10 @@ class Controller(AnchorLayout):
     text_path = ObjectProperty(None)
 
     def load_kaggle_data(self):
-        CSVLoader.load()
-
+        X, y = CSVLoader.load()
+        net1 = Model.getNeuralNet()
+        net1.fit(X, y)
+    
     def do_action(self):
         self.path.text = 'Do something'
 
