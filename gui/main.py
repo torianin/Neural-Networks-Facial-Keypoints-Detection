@@ -19,7 +19,7 @@ class Controller(AnchorLayout):
 
     def load_kaggle_data(self):
         X, y = CSVLoader.load()
-        net1 = Model.getNeuralNet()
+        net1 = Model.get_neural_net()
         net1.fit(X, y)
     
     def do_action(self):

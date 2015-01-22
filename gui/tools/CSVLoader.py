@@ -6,39 +6,26 @@ from sklearn.utils import shuffle
 
 
 def load(ftrain='/Users/torianin/Neural-Networks-Facial-Keypoints-Detection/training.csv', ftest='/Users/torianin/Neural-Networks-Facial-Keypoints-Detection/test.csv', test=False, cols=None):
-    """Loads data from FTEST if *test* is True, otherwise from FTRAIN.
-    Pass a list of *cols* if you're only interested in a subset of the
-    target columns.
-    """
     fname = ftest if test else ftrain
-    df = read_csv(os.path.expanduser(fname))  # load pandas dataframe
+    df = read_csv(os.path.expanduser(fname)) 
 
-    # The Image column has pixel values separated by space; convert
-    # the values to numpy arrays:
     df['Image'] = df['Image'].apply(lambda im: np.fromstring(im, sep=' '))
 
-    if cols:  # get a subset of columns
+    if cols:
         df = df[list(cols) + ['Image']]
 
-    print(df.count())  # prints the number of values for each column
-    df = df.dropna()  # drop all rows that have missing values in them
+    print(df.count())
+    df = df.dropna()
 
-    X = np.vstack(df['Image'].values) / 255.  # scale pixel values to [0, 1]
+    X = np.vstack(df['Image'].values) / 255.
     X = X.astype(np.float32)
 
-    if not test:  # only FTRAIN has any target columns
+    if not test:
         y = df[df.columns[:-1]].values
-        y = (y - 48) / 48  # scale target coordinates to [-1, 1]
-        X, y = shuffle(X, y, random_state=42)  # shuffle train data
+        y = (y - 48) / 48 
+        X, y = shuffle(X, y, random_state=42)
         y = y.astype(np.float32)
     else:
         y = None
 
     return X, y
-
-
-#X, y = load()
-#print("X.shape == {}; X.min == {:.3f}; X.max == {:.3f}".format(
-#    X.shape, X.min(), X.max()))
-#print("y.shape == {}; y.min == {:.3f}; y.max == {:.3f}".format(
-#    y.shape, y.min(), y.max()))
