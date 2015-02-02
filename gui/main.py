@@ -9,21 +9,25 @@ from kivy.graphics import Rectangle
 import os
 from tools import CSVLoader
 from tools import Model
+import cPickle as pickle
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
 
+
+
 class Controller(AnchorLayout):
     text_path = ObjectProperty(None)
+    def remember_network(self):
+        with open('net1.pickle', 'wb') as f:
+            pickle.dump(self.net1, f, -1)
 
     def load_kaggle_data(self):
         X, y = CSVLoader.load()
-        net1 = Model.get_neural_net()
-        net1.fit(X, y)
-    
-    def do_action(self):
-        self.path.text = 'Do something'
+        self.net1 = Model.get_neural_net()
+        self.net1.fit(X, y)
+        self.net1.predict(X)
 
     def show_load(self):
         content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
