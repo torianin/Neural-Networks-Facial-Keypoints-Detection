@@ -38,5 +38,6 @@ parser.add_argument("outfile", help="output .png file")
 args = parser.parse_args()
 
 X = load_data()
+X = X.reshape(-1, 1, 96, 96)
 net = load_model(args.net)
 plot_samples(net, X[np.random.permutation(len(X))][:20], args.outfile)
