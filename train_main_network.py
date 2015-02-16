@@ -12,9 +12,13 @@ from nolearn.lasagne import NeuralNet
 
 from utils import load_model, store_model
 
+import pylearn2
+from lasagne.layers.cuda_convnet import Conv2DCCLayer as Conv2DLayer
+from lasagne.layers.cuda_convnet import MaxPool2DCCLayer as MaxPool2DLayer
+
 pyplot = plt
 
-CUDA = False
+CUDA = True
 
 def show_plot():
     fig = plt.figure(1)
@@ -102,7 +106,7 @@ def train_network2(X, y):
         update_momentum=0.9,
     
         regression=True,
-        max_epochs=10,
+        max_epochs=500,
         verbose=1,
         )
     net2.fit(X.reshape(-1, 1, 96, 96), y)
