@@ -8,6 +8,8 @@ video_capture = cv2.VideoCapture(0)
 
 counter = 0
 
+Resized_image_size = (96, 96) 
+
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
@@ -44,7 +46,10 @@ while True:
         w = faces[biggest_idx][2]
         h = faces[biggest_idx][3]
         crop_img = frame[y:y+h, x:x+w]
-        cv2.imshow("cropped", crop_img)
+        gray_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+        resized_img = cv2.resize(gray_img, Resized_image_size)
+
+        cv2.imshow("Preprocessed image", resized_img)
 
 # When everything is done, release the capture
 video_capture.release()
