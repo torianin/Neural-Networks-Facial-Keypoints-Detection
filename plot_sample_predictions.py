@@ -5,6 +5,9 @@ import pandas
 import argparse
 from utils import load_model, store_model
 
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as pyplot
 
 def load_data():

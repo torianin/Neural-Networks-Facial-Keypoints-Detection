@@ -2,6 +2,9 @@
 
 from utils import load_model
 import argparse
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
